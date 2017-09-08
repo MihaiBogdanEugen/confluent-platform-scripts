@@ -1,13 +1,8 @@
----
 version: '3'
 services:
-  zookeeper-1:
-    image: mbe1224/confluent-osp-zookeeper:jesse-slim-8u144-2.11.11-3.2.2
-    ports:
-      - 12181:12181    
-      - 12888:12888
-      - 13888:13888            
-    environment:    
+  zk-1:
+    image: mbe1224/confluent-osp-zookeeper
+    environment:
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_CLIENT_PORT: 12181
       ZOOKEEPER_TICK_TIME: 2000
@@ -18,12 +13,8 @@ services:
     extra_hosts:
       - "moby:127.0.0.1"
 
-  zookeeper-2:
-    image: mbe1224/confluent-osp-zookeeper:jesse-slim-8u144-2.11.11-3.2.2
-    ports:
-      - 22181:22181    
-      - 22888:22888
-      - 23888:23888         
+  zk-2:
+    image: mbe1224/confluent-osp-zookeeper
     environment:
       ZOOKEEPER_SERVER_ID: 2
       ZOOKEEPER_CLIENT_PORT: 22181
@@ -35,12 +26,8 @@ services:
     extra_hosts:
       - "moby:127.0.0.1"
 
-  zookeeper-3:
-    image: mbe1224/confluent-osp-zookeeper:jesse-slim-8u144-2.11.11-3.2.2
-    ports:
-      - 32181:32181    
-      - 32888:32888
-      - 33888:33888       
+  zk-3:
+    image: mbe1224/confluent-osp-zookeeper
     environment:
       ZOOKEEPER_SERVER_ID: 3
       ZOOKEEPER_CLIENT_PORT: 32181
@@ -52,50 +39,44 @@ services:
     extra_hosts:
       - "moby:127.0.0.1"
 
-  kafka-1:
-    image: mbe1224/confluent-osp-kafka:jesse-slim-8u144-2.11.11-3.2.2
-    ports:
-      - 19092:19092      
-    network_mode: host
+  kfk-1:
+    image: mbe1224/confluent-osp-kafka
     depends_on:
-      - zookeeper-1
-      - zookeeper-2
-      - zookeeper-3
+      - zk-1
+      - zk-2
+      - zk-3
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:19092
+    network_mode: host
     extra_hosts:
       - "moby:127.0.0.1"
 
-  kafka-2:
-    image: mbe1224/confluent-osp-kafka:jesse-slim-8u144-2.11.11-3.2.2
-    ports:
-      - 29092:29092      
-    network_mode: host
+  kfk-2:
+    image: mbe1224/confluent-osp-kafka
     depends_on:
-      - zookeeper-1
-      - zookeeper-2
-      - zookeeper-3
+      - zk-1
+      - zk-2
+      - zk-3
     environment:
       KAFKA_BROKER_ID: 2
       KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092
+    network_mode: host
     extra_hosts:
       - "moby:127.0.0.1"
 
-  kafka-3:
-    image: mbe1224/confluent-osp-kafka:jesse-slim-8u144-2.11.11-3.2.2
-    ports:
-      - 39092:39092          
-    network_mode: host
+  kfk-3:
+    image: mbe1224/confluent-osp-kafka
     depends_on:
-      - zookeeper-1
-      - zookeeper-2
-      - zookeeper-3
+      - zk-1
+      - zk-2
+      - zk-3
     environment:
       KAFKA_BROKER_ID: 3
       KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:39092
+    network_mode: host
     extra_hosts:
       - "moby:127.0.0.1"
