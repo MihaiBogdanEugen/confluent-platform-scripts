@@ -10,8 +10,6 @@ services:
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: localhost:12888:13888;localhost:22888:23888;localhost:32888:33888
     network_mode: host
-    extra_hosts:
-      - "moby:127.0.0.1"
 
   zk-2:
     image: mbe1224/confluent-osp-zookeeper
@@ -23,8 +21,6 @@ services:
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: localhost:12888:13888;localhost:22888:23888;localhost:32888:33888
     network_mode: host
-    extra_hosts:
-      - "moby:127.0.0.1"
 
   zk-3:
     image: mbe1224/confluent-osp-zookeeper
@@ -36,8 +32,6 @@ services:
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: localhost:12888:13888;localhost:22888:23888;localhost:32888:33888
     network_mode: host
-    extra_hosts:
-      - "moby:127.0.0.1"
 
   kfk-1:
     image: mbe1224/confluent-osp-kafka
@@ -50,8 +44,6 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:19092
     network_mode: host
-    extra_hosts:
-      - "moby:127.0.0.1"
 
   kfk-2:
     image: mbe1224/confluent-osp-kafka
@@ -64,8 +56,6 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092
     network_mode: host
-    extra_hosts:
-      - "moby:127.0.0.1"
 
   kfk-3:
     image: mbe1224/confluent-osp-kafka
@@ -78,5 +68,3 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:39092
     network_mode: host
-    extra_hosts:
-      - "moby:127.0.0.1"

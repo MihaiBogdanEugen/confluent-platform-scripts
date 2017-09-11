@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker-compose down -v --rmi 'all'
+docker-compose down -v --remove-orphans #--rmi 'all'
