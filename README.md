@@ -20,20 +20,26 @@ docker-compose version 1.14.0, build c7bdf9e
 docker-machine version 0.12.2, build 9371605
 ```
 
-#### ZooKeeper ####
+#### 1. ZooKeeper ####
 
-1. Single [Apache ZooKeeper] node:
+1.1. Single [Apache ZooKeeper] node:
 - Start node - [single-zk-start.sh]
 - Stop node - [single-zk-stop.sh]
 
-2. Cluster of 3 [Apache ZooKeeper] nodes:
+1.2. Cluster of 3 [Apache ZooKeeper] nodes:
 - Start the cluster - [cluster-zkX3-start.sh]
 - Stop the cluster - [cluster-zkX3-stop.sh]
 - Check if leader election succeded - [cluster-zkX3-check.sh]
 
-#### Kafka ####
+#### 2. Kafka ####
 
-(work in progress)
+2.1. A single [Apache ZooKeeper] node plus a single [Apache Kafka] node:
+- Start the cluster - [single-kfk-zk-start.sh]
+- Stop the cluster - [single-kfk-zk-stop.sh]
+
+2.2. Cluster of 3 [Apache ZooKeeper] nodes plus 3 [Apache Kafka] nodes:
+- Start the cluster - [cluster-kfkX3-zkX3-start.sh]
+- Stop the cluster - [cluster-kfkX3-zkX3-start.sh]
 
 #### Kafka, Schema Registry and REST Proxy #####
 
@@ -57,9 +63,14 @@ docker-machine version 0.12.2, build 9371605
    [cluster-zkX3-start.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/cluster-zkX3/cluster-zkX3-start.sh>    
    [cluster-zkX3-stop.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/cluster-zkX3/cluster-zkX3-stop.sh>
    [cluster-zkX3-check.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/cluster-zkX3/cluster-zkX3-check.sh>
+   [single-kfk-zk-start.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/single-kfk-zk/single-kfk-zk-start.sh>
+   [single-kfk-zk-stop.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/single-kfk-zk/single-kfk-zk-stop.sh>  
+   [cluster-kfkX3-zkX3-start.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/cluster-kfkX3-zkX3/cluster-kfkX3-zkX3-start.sh>
+   [cluster-kfkX3-zkX3-stop.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/cluster-kfkX3-zkX3/cluster-kfkX3-zkX3-stop.sh>
    [Official Documentation]: <http://docs.confluent.io/>
    [Important Notes/Caveats]: <http://docs.confluent.io/current/cp-docker-images/docs/intro.html#important-notes-caveats>
    [Apache ZooKeeper]: <https://zookeeper.apache.org/>
+   [Apache ZooKeeper]: <https://kafka.apache.org/>
    [docker-machine-create.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/docker-machine-create.sh>
    [docker-machine-start.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/docker-machine-start.sh>
    [docker-machine-stop.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/docker-machine-stop.sh>
