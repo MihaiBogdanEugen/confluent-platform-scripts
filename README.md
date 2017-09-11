@@ -70,7 +70,7 @@ docker-machine version 0.12.2, build 9371605
    [Official Documentation]: <http://docs.confluent.io/>
    [Important Notes/Caveats]: <http://docs.confluent.io/current/cp-docker-images/docs/intro.html#important-notes-caveats>
    [Apache ZooKeeper]: <https://zookeeper.apache.org/>
-   [Apache ZooKeeper]: <https://kafka.apache.org/>
+   [Apache Kafka]: <https://kafka.apache.org/>
    [docker-machine-create.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/docker-machine-create.sh>
    [docker-machine-start.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/docker-machine-start.sh>
    [docker-machine-stop.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/docker-machine-stop.sh>
