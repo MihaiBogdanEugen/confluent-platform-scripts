@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker stop zk && docker rm zk
+docker-compose down -v --remove-orphans #--rmi 'all'
