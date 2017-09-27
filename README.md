@@ -55,17 +55,8 @@ docker-machine version 0.12.2, build 9371605
 
 3.2. Cluster of 3 [Apache ZooKeeper] nodes, plus 3 [Apache Kafka] nodes, a [Schema Registry] node and a [REST Proxy] node:
 - Start the cluster - [cluster-kfkX3-zkX3-sr-rp-start.sh]
-- Stop the cluster - [cluster-kfkX3-zkX3-sr-rp-start.sh]
-
-#### 4. Kafka, Schema Registry, REST Proxy and Kafka Connect #####
-
-4.1. A single [Apache ZooKeeper] node, plus a single [Apache Kafka] node, a [Schema Registry] node, a [REST Proxy] node and an [Apache Kafka Connect] node:
-- Start the cluster - [single-kfk-zk-sr-rp-kc-start.sh]
-- Stop the cluster - [single-kfk-zk-sr-rp-kc-stop.sh]
-
-4.2. Cluster of 3 [Apache ZooKeeper] nodes, plus 3 [Apache Kafka] nodes, a [Schema Registry] node, a [REST Proxy] node and an [Apache Kafka Connect] node:
-- Start the cluster - [cluster-kfkX3-zkX3-sr-rp-kc-start.sh]
-- Stop the cluster - [cluster-kfkX3-zkX3-sr-rp-kc-start.sh]
+- Stop the cluster - [cluster-kfkX3-zkX3-sr-rp-stop.sh]
+- Check if ZooKeeper leader election succeded and if all Kafka brokers know about each other - [cluster-kfkX3-zkX3-sr-rp-check.sh]
 
 ### Running using Kubernetes ###
 
@@ -81,12 +72,9 @@ docker-machine version 0.12.2, build 9371605
    [Apache Kafka Connect]: <https://kafka.apache.org/documentation/#connect>   
    [single-kfk-zk-sr-rp-start.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/single-kfk-zk-sr-rp/single-kfk-zk-sr-rp-start.sh>
    [single-kfk-zk-sr-rp-stop.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/single-kfk-zk-sr-rp/single-kfk-zk-sr-rp-stop.sh>
-   [single-kfk-zk-sr-rp-kc-start.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/single-kfk-zk-sr-rp-kc/single-kfk-zk-sr-rp-kc-start.sh>
-   [single-kfk-zk-sr-rp-kc-stop.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/single-kfk-zk-sr-rp-kc/single-kfk-zk-sr-rp-kc-stop.sh>
    [cluster-kfkX3-zkX3-sr-rp-start.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/cluster-kfkX3-zkX3-sr-rp/cluster-kfkX3-zkX3-sr-rp-start.sh>
    [cluster-kfkX3-zkX3-sr-rp-stop.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/cluster-kfkX3-zkX3-sr-rp/cluster-kfkX3-zkX3-sr-rp-stop.sh>
-   [cluster-kfkX3-zkX3-sr-rp-kc-start.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/cluster-kfkX3-zkX3-sr-rp-kc/cluster-kfkX3-zkX3-sr-rp-kc-start.sh>
-   [cluster-kfkX3-zkX3-sr-rp-kc-stop.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/cluster-kfkX3-zkX3-sr-rp-kc/cluster-kfkX3-zkX3-sr-rp-kc-stop.sh>
+   [cluster-kfkX3-zkX3-sr-rp-check.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/cluster-kfkX3-zkX3-sr-rp/cluster-kfkX3-zkX3-sr-rp-check.sh>   
    [single-zk-start.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/single-zk/single-zk-start.sh>
    [single-zk-stop.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/single-zk/single-zk-stop.sh>   
    [cluster-zkX3-start.sh]: <https://github.com/MihaiBogdanEugen/confluent-osp/blob/master/docker/cluster-zkX3/cluster-zkX3-start.sh>    
