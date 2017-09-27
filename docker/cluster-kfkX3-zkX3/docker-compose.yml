@@ -1,3 +1,4 @@
+---
 version: '3'
 services:
   zk-1:
@@ -68,3 +69,4 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:39092
     network_mode: host
+...
