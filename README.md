@@ -1,4 +1,4 @@
-# [Confluent Open Source Platform](https://www.confluent.io/product/confluent-open-source/) Docker Compose environments using [Oracle JDK] #
+# [Confluent Open Source Platform](https://www.confluent.io/product/confluent-open-source/) using [Oracle JDK] #
 
 ### Running using Docker ###
 
