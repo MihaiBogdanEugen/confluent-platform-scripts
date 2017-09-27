@@ -1,3 +1,4 @@
+---
 version: '3'
 services:
   zk-1:
@@ -32,3 +33,4 @@ services:
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: localhost:12888:13888;localhost:22888:23888;localhost:32888:33888
     network_mode: host
+...
