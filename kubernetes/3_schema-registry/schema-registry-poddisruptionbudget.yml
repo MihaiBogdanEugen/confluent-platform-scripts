@@ -1,0 +1,13 @@
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: sr-pdb
+  namespace: confluent-platform
+  labels:
+    category: schema-registry
+spec:
+  selector:
+    matchLabels:
+      app: sr
+  minAvailable: 1

@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: rp
+  namespace: confluent-platform  
+  labels:
+    category: rest-proxy
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rp
+    spec:
+      terminationGracePeriodSeconds: 300
+      containers:
+      - name: confluent-rest-proxy
+        imagePullPolicy: Always
+        image: mbe1224/confluent-rest-proxy
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: 500m
+        ports:
+        - containerPort: 8082
+          name: server
+        env:
+        - name: KAFKA_REST_ZOOKEEPER_CONNECT
+          value: "zk-svc.confluent-platform.svc.cluster.local:2181"
+        - name: KAFKA_REST_SCHEMA_REGISTRY_URL
+          value: "sr-svc.confluent-platform.svc.cluster.local:8081"
+        - name: KAFKA_REST_HOST_NAME
+          value: "rp-svc.confluent-platform.svc.cluster.local"          
+        - name: KAFKA_REST_LISTENERS
+          value: "http://rp-svc.confluent-platform.svc.cluster.local:8082"
+        - name: KAFKA_REST_LOG4J_ROOT_LOGLEVEL
+          valueFrom:
+            configMapKeyRef:
+                name: rp-cm
+                key: log4j.root.loglevel

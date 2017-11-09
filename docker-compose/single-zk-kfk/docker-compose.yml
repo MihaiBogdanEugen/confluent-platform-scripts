@@ -1,0 +1,20 @@
+---
+version: '3'
+services:
+  zk:
+    image: mbe1224/confluent-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    network_mode: host
+
+  kfk:
+    image: mbe1224/confluent-kafka
+    depends_on:
+      - zk
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: localhost:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+    network_mode: host
+...
