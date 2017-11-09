@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka1
+  labels:
+    app: kfk
+    category: kafka
+spec:
+  ports:
+  - name: server
+    protocol: TCP  
+    port: 9092
+    targetPort: 9092
+  selector:
+    app: kfk
+    instance: "1"
