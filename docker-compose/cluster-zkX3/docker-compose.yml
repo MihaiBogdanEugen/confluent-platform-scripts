@@ -2,7 +2,7 @@
 version: '3'
 services:
   zk-1:
-    image: mbe1224/confluent-osp-zookeeper
+    image: mbe1224/confluent-zookeeper
     environment:
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_CLIENT_PORT: 12181
@@ -13,7 +13,7 @@ services:
     network_mode: host
 
   zk-2:
-    image: mbe1224/confluent-osp-zookeeper
+    image: mbe1224/confluent-zookeeper
     environment:
       ZOOKEEPER_SERVER_ID: 2
       ZOOKEEPER_CLIENT_PORT: 22181
@@ -24,7 +24,7 @@ services:
     network_mode: host
 
   zk-3:
-    image: mbe1224/confluent-osp-zookeeper
+    image: mbe1224/confluent-zookeeper
     environment:
       ZOOKEEPER_SERVER_ID: 3
       ZOOKEEPER_CLIENT_PORT: 32181

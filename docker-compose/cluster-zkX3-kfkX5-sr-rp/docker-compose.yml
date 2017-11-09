@@ -1,0 +1,136 @@
+---
+version: '3'
+services:
+  zk-1:
+    image: mbe1224/confluent-zookeeper
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 12181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: localhost:12888:13888;localhost:22888:23888;localhost:32888:33888
+    network_mode: host
+
+  zk-2:
+    image: mbe1224/confluent-zookeeper
+    environment:
+      ZOOKEEPER_SERVER_ID: 2
+      ZOOKEEPER_CLIENT_PORT: 22181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: localhost:12888:13888;localhost:22888:23888;localhost:32888:33888
+    network_mode: host
+
+  zk-3:
+    image: mbe1224/confluent-zookeeper
+    environment:
+      ZOOKEEPER_SERVER_ID: 3
+      ZOOKEEPER_CLIENT_PORT: 32181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: localhost:12888:13888;localhost:22888:23888;localhost:32888:33888
+    network_mode: host
+
+  kfk-1:
+    image: mbe1224/confluent-kafka
+    depends_on:
+      - zk-1
+      - zk-2
+      - zk-3
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:19092
+    network_mode: host
+
+  kfk-2:
+    image: mbe1224/confluent-kafka
+    depends_on:
+      - zk-1
+      - zk-2
+      - zk-3
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092
+    network_mode: host
+
+  kfk-3:
+    image: mbe1224/confluent-kafka
+    depends_on:
+      - zk-1
+      - zk-2
+      - zk-3
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:39092
+    network_mode: host
+
+  kfk-4:
+    image: mbe1224/confluent-kafka
+    depends_on:
+      - zk-1
+      - zk-2
+      - zk-3
+    environment:
+      KAFKA_BROKER_ID: 4
+      KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:49092
+    network_mode: host
+
+  kfk-5:
+    image: mbe1224/confluent-kafka
+    depends_on:
+      - zk-1
+      - zk-2
+      - zk-3
+    environment:
+      KAFKA_BROKER_ID: 5
+      KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:59092
+    network_mode: host  
+
+  sr:
+    image: mbe1224/confluent-schema-registry
+    depends_on:
+      - zk-1
+      - zk-2
+      - zk-3
+      - kfk-1
+      - kfk-2
+      - kfk-3 
+      - kfk-4
+      - kfk-5                  
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: confluent-os-platform-schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: localhost:12181,localhost:22181,localhost:32181
+      SCHEMA_REGISTRY_LISTENERS: http://localhost:8081
+    network_mode: host
+    
+  rp:
+    image: mbe1224/confluent-rest-proxy
+    depends_on:
+      - zk-1
+      - zk-2
+      - zk-3
+      - kfk-1
+      - kfk-2
+      - kfk-3 
+      - kfk-4
+      - kfk-5  
+      - sr
+    ports:
+      - "8082:8082"
+    environment:
+      KAFKA_REST_HOST_NAME: confluent-os-platform-rest-proxy    
+      KAFKA_REST_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      KAFKA_REST_LISTENERS: http://localhost:8082
+      KAFKA_REST_SCHEMA_REGISTRY_URL: http://localhost:8081
+    network_mode: host      
+...
