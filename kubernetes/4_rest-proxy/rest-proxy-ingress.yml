@@ -1,0 +1,20 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: rest-proxy
+  namespace: confluent-platform  
+  labels:
+    category: rest-proxy
+spec:
+  tls:
+  - hosts:
+    - confluent-platform.mbe1224.com
+  rules:
+  - host: confluent-platform.mbe1224.com
+    http:
+      paths:
+      - path: /rest-proxy
+        backend:
+          serviceName: rp-svc
+          servicePort: 8082

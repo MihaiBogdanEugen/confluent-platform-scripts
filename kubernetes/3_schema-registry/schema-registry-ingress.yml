@@ -1,0 +1,20 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: schema-registry
+  namespace: confluent-platform  
+  labels:
+    category: schema-registry
+spec:
+  tls:
+  - hosts:
+    - confluent-platform.mbe1224.com
+  rules:
+  - host: confluent-platform.mbe1224.com
+    http:
+      paths:
+      - path: /schema-registry
+        backend:
+          serviceName: sr-svc
+          servicePort: 8081
