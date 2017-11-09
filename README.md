@@ -29,6 +29,7 @@ Don't forget to check the [Important Notes/Caveats] from the [Official Documenta
 #### 1. ZooKeeper: ####
 
 1.1. Single [Apache ZooKeeper] node - [docker-compose.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/docker-compose/single-zk/docker-compose.yml)
+
 1.2. Cluster of 3 [Apache ZooKeeper] nodes - [docker-compose.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/docker-compose/cluster-zkX3/docker-compose.yml)
 - Check if leader election succeded - [cluster-zkX3-check.sh](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/docker-compose/cluster-zkX3/cluster-zkX3-check.sh)
 
@@ -59,39 +60,35 @@ Client Version: version.Info{Major:"1", Minor:"8", GitVersion:"v1.8.3", GitCommi
 Server Version: version.Info{Major:"1", Minor:"7", GitVersion:"v1.7.8", GitCommit:"bc6162cc70b4a39a7f39391564e0dd0be60b39e9", GitTreeState:"clean", BuildDate:"2017-10-05T06:35:40Z", GoVersion:"go1.8.3", Compiler:"gc", Platform:"linux/amd64"}
 ```
 
-#### Prerequisites: ####
+#### 0. Prerequisites: ####
 
-Create a dedicated namespace - [Namespace.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/0_prerequisites/namespace.yml)
+Create a dedicated namespace - [Namespace](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/0_prerequisites/namespace.yml)
 
 #### 1. ZooKeeper: ####
-- Use Deployments
-    - [Service.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-service.yml)
-    - [ConfigMap.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-configmap.yml)
-    - [PodDisruptionBudget.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-poddisruptionbudget.yml)
-    - [Deployment.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-deployment.yml)
+- [Service](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-service.yml)
+- [ConfigMap](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-configmap.yml)
+- [PodDisruptionBudget](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-poddisruptionbudget.yml)
+- Use [Deployment](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-deployment.yml) or [StatefulSet](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-statefulset.yml)
 
 #### 2. Kafka: ####
-- Use Deployments
-    - [Service.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/2_kafka/kafka-service.yml)
-    - [ConfigMap.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/2_kafka/kafka-configmap.yml)
-    - [PodDisruptionBudget.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/2_kafka/kafka-poddisruptionbudget.yml)
-    - [Deployment.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/2_kafka/kafka-deployment.yml)
+- [Service](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/2_kafka/kafka-service.yml)
+- [ConfigMap](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/2_kafka/kafka-configmap.yml)
+- [PodDisruptionBudget](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/2_kafka/kafka-poddisruptionbudget.yml)
+- [Deployment](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/2_kafka/kafka-deployment.yml) or [StatefulSet](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/2_kafka/kafka-statefulset.yml)
 
 #### 3. Schema Registry: ####
-- Use Deployments
-    - [Service.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/3_schema-registry/schema-registry-service.yml)
-    - [Ingress.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/3_schema-registry/schema-registry-ingress.yml)    
-    - [ConfigMap.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/3_schema-registry/schema-registry-configmap.yml)
-    - [PodDisruptionBudget.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/3_schema-registry/schema-registry-poddisruptionbudget.yml)
-    - [Deployment.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/3_schema-registry/schema-registry-deployment.yml)
+- [Service](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/3_schema-registry/schema-registry-service.yml)
+- [Ingress](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/3_schema-registry/schema-registry-ingress.yml)    
+- [ConfigMap](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/3_schema-registry/schema-registry-configmap.yml)
+- [PodDisruptionBudget](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/3_schema-registry/schema-registry-poddisruptionbudget.yml)
+- [Deployment](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/3_schema-registry/schema-registry-deployment.yml)
 
 #### 4. REST Proxy: ####
-- Use Deployments
-    - [Service.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/4_rest-proxy/rest-proxy-service.yml)
-    - [Ingress.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/4_rest-proxy/rest-proxy-ingress.yml)    
-    - [ConfigMap.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/4_rest-proxy/rest-proxy-configmap.yml)
-    - [PodDisruptionBudget.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/4_rest-proxy/rest-proxy-poddisruptionbudget.yml)
-    - [Deployment.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/4_rest-proxy/rest-proxy-deployment.yml)
+- [Service](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/4_rest-proxy/rest-proxy-service.yml)
+- [Ingress](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/4_rest-proxy/rest-proxy-ingress.yml)    
+- [ConfigMap](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/4_rest-proxy/rest-proxy-configmap.yml)
+- [PodDisruptionBudget](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/4_rest-proxy/rest-proxy-poddisruptionbudget.yml)
+- [Deployment](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/4_rest-proxy/rest-proxy-deployment.yml)
 
 ### Running using Minikube: ###
 
@@ -118,20 +115,32 @@ One has to start the minikube using the xhyve driver.
 - Check kubectl's current context [minikube-check.sh](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/minikube-check.sh)
 
 #### 1. ZooKeeper: ####
-- Use Services ([#1](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/1_zookeeper/zookeeper1-service.yml), [#2](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/1_zookeeper/zookeeper2-service.yml), [#3](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/1_zookeeper/zookeeper3-service.yml)) and Pods ([#1](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/1_zookeeper/zookeeper1-pod.yml), [#2](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/1_zookeeper/zookeeper2-pod.yml), [#3](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/1_zookeeper/zookeeper3-pod.yml))
+- [Service #1](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/1_zookeeper/zookeeper1-service.yml)
+- [Service #2](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/1_zookeeper/zookeeper2-service.yml)
+- [Service #3](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/1_zookeeper/zookeeper3-service.yml)
+- [Pod #1](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/1_zookeeper/zookeeper1-pod.yml)
+- [Pod #2](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/1_zookeeper/zookeeper2-pod.yml)
+- [Pod #3](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/1_zookeeper/zookeeper3-pod.yml)
 
 #### 2. Kafka: ####
-- Use Services ([#1](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka1-service.yml), [#2](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka2-service.yml), [#3](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka3-service.yml)) and Pods ([#1](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka1-pod.yml), [#2](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka2-pod.yml), [#3](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka3-pod.yml))
+- [Service #1](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka1-service.yml)
+- [Service #2](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka2-service.yml)
+- [Service #3](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka3-service.yml)
+- [Service #4](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka4-service.yml)
+- [Service #5](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka5-service.yml)
+- [Pod #1](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka1-pod.yml)
+- [Pod #2](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka2-pod.yml)
+- [Pod #3](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka3-pod.yml)
+- [Pod #4](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka4-pod.yml)
+- [Pod #5](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/2_kafka/kafka5-pod.yml)
 
 #### 3. Schema Registry: ####
-- Use Services and Pods
-    - [Service.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/3_schema-registry/schema-registry-service.yml)
-    - [Pod.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/3_schema-registry/schema-registry-pod.yml)
+- [Service #1](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/3_schema-registry/schema-registry-service.yml)
+- [Pod #1](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/3_schema-registry/schema-registry-pod.yml)
 
 #### 4. REST Proxy: ####
-- Use Services and Pods
-    - [Service.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/4_rest-proxy/rest-proxy-service.yml)
-    - [Pod.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/4_rest-proxy/rest-proxy-pod.yml)
+- [Service #1](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/4_rest-proxy/rest-proxy-service.yml)
+- [Pod #1](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/minikube/4_rest-proxy/rest-proxy-pod.yml)
 
 ### Dual licensed under: ###
 
