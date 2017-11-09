@@ -37,15 +37,15 @@ Don't forget to check the [Important Notes/Caveats] from the [Official Documenta
 
 2.1. A single [Apache ZooKeeper] node, plus a single [Apache Kafka] node - [docker-compose.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/docker-compose/single-zk-kfk/docker-compose.yml)
 
-2.2. Cluster of 3 [Apache ZooKeeper] nodes, plus 3 [Apache Kafka] nodes - [docker-compose.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/docker-compose/cluster-zkX3-kfkX3/docker-compose.yml)
-- Check if ZooKeeper leader election succeded and if all Kafka brokers know about each other - [cluster-zkX3-kfkX3-check.sh](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/docker-compose/cluster-zkX3-kfkX3/cluster-zkX3-kfkX3-check.sh)
+2.2. Cluster of 3 [Apache ZooKeeper] nodes, plus 5 [Apache Kafka] nodes - [docker-compose.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/docker-compose/cluster-zkX3-kfkX5/docker-compose.yml)
+- Check if ZooKeeper leader election succeded and if all Kafka brokers know about each other - [cluster-zkX3-kfkX3-check.sh](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/docker-compose/cluster-zkX3-kfkX5/cluster-zkX3-kfkX5-check.sh)
 
 #### 3. Kafka, Schema Registry and REST Proxy: #####
 
 3.1. A single [Apache ZooKeeper] node, plus a single [Apache Kafka] node, a [Schema Registry] node and a [REST Proxy] node - [docker-compose.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/docker-compose/single-zk-kfk-sr-rp/docker-compose.yml)
 
-3.2. Cluster of 3 [Apache ZooKeeper] nodes, plus 3 [Apache Kafka] nodes, a [Schema Registry] node and a [REST Proxy] node - [docker-compose.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/docker-compose/cluster-zkX3-kfkX3-sr-rp/docker-compose.yml)
-- Check if ZooKeeper leader election succeded and if all Kafka brokers know about each other - [cluster-zkX3-kfkX3-sr-rp-check.sh](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/docker/cluster-zkX3-kfkX3-sr-rp/cluster-zkX3-kfkX3-sr-rp-check.sh)
+3.2. Cluster of 3 [Apache ZooKeeper] nodes, plus 5 [Apache Kafka] nodes, a [Schema Registry] node and a [REST Proxy] node - [docker-compose.yml](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/docker-compose/cluster-zkX3-kfkX5-sr-rp/docker-compose.yml)
+- Check if ZooKeeper leader election succeded and if all Kafka brokers know about each other - [cluster-zkX3-kfkX3-sr-rp-check.sh](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/docker-compose/cluster-zkX3-kfkX5-sr-rp/cluster-zkX3-kfkX5-sr-rp-check.sh)
 
 ### Running using Kubernetes: ###
 
@@ -68,7 +68,7 @@ Create a dedicated namespace - [Namespace](https://github.com/MihaiBogdanEugen/c
 - [Service](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-service.yml)
 - [ConfigMap](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-configmap.yml)
 - [PodDisruptionBudget](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-poddisruptionbudget.yml)
-- Use [Deployment](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-deployment.yml) or [StatefulSet](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-statefulset.yml)
+- [Deployment](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-deployment.yml) or [StatefulSet](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/1_zookeeper/zookeeper-statefulset.yml)
 
 #### 2. Kafka: ####
 - [Service](https://github.com/MihaiBogdanEugen/confluent-platform-scripts/blob/master/kubernetes/2_kafka/kafka-service.yml)
