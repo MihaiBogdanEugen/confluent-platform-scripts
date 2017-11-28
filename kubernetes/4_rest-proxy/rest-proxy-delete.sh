@@ -9,6 +9,6 @@ CONFIG_FILE=$1
 
 kubectl --kubeconfig $CONFIG_FILE \
     --namespace=confluent-platform \
-    delete pods,services,configmaps,poddisruptionbudgets,deployments,statefulsets \
+    delete pods,services,configmaps,poddisruptionbudgets,deployments,statefulsets,ingresses \
     -l category=rest-proxy \
     --include-uninitialized

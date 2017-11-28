@@ -3,6 +3,7 @@ apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
   name: rp
+  namespace: confluent-platform  
   labels:
     category: rest-proxy
 spec: 
