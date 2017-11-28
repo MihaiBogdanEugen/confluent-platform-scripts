@@ -1,0 +1,182 @@
+---
+version: '3'
+services:
+  zk-1:
+    image: mbe1224/confluent-zookeeper
+    ports:
+      - "12181:12181"
+      - "12888:12888"
+      - "13888:13888" 
+      - "8001:8001" 
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 12181
+      ZOOKEEPER_SERVERS: localhost:12888:13888;localhost:22888:23888;localhost:32888:33888
+    network_mode: host   
+
+  zk-2:
+    image: mbe1224/confluent-zookeeper
+    ports:
+      - "22181:22181"
+      - "22888:22888"
+      - "23888:23888"
+      - "8002:8002"         
+    environment:
+      ZOOKEEPER_SERVER_ID: 2
+      ZOOKEEPER_CLIENT_PORT: 22181
+      ZOOKEEPER_SERVERS: localhost:12888:13888;localhost:22888:23888;localhost:32888:33888
+    network_mode: host   
+
+  zk-3:
+    image: mbe1224/confluent-zookeeper
+    ports:
+      - "32181:32181"
+      - "32888:32888"
+      - "33888:33888"   
+      - "8003:8003"           
+    environment:
+      ZOOKEEPER_SERVER_ID: 3
+      ZOOKEEPER_CLIENT_PORT: 32181
+      ZOOKEEPER_SERVERS: localhost:12888:13888;localhost:22888:23888;localhost:32888:33888
+    network_mode: host   
+
+  kfk-1:
+    image: mbe1224/confluent-kafka
+    depends_on:
+      - zk-1
+      - zk-2
+      - zk-3
+    ports:
+      - "19092:19092"      
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:19092
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 5
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 5
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 5
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 5
+      KAFKA_NUM_PARTITIONS: 5  
+    network_mode: host   
+
+  kfk-2:
+    image: mbe1224/confluent-kafka
+    depends_on:
+      - zk-1
+      - zk-2
+      - zk-3
+    ports:
+      - "29092:29092"       
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 5
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 5
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 5
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 5
+      KAFKA_NUM_PARTITIONS: 5   
+    network_mode: host   
+
+  kfk-3:
+    image: mbe1224/confluent-kafka
+    depends_on:
+      - zk-1
+      - zk-2
+      - zk-3
+    ports:
+      - "39092:39092"       
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:39092
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 5
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 5
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 5
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 5
+      KAFKA_NUM_PARTITIONS: 5    
+    network_mode: host   
+
+  kfk-4:
+    image: mbe1224/confluent-kafka
+    depends_on:
+      - zk-1
+      - zk-2
+      - zk-3
+    ports:
+      - "49092:49092"       
+    environment:
+      KAFKA_BROKER_ID: 4
+      KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:49092
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 5
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 5
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 5
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 5
+      KAFKA_NUM_PARTITIONS: 5    
+    network_mode: host   
+
+  kfk-5:
+    image: mbe1224/confluent-kafka
+    depends_on:
+      - zk-1
+      - zk-2
+      - zk-3
+    ports:
+      - "59092:59092"       
+    environment:
+      KAFKA_BROKER_ID: 5
+      KAFKA_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:59092  
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 5
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 5
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 5
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 5
+      KAFKA_NUM_PARTITIONS: 5         
+    network_mode: host     
+
+  sr:
+    image: mbe1224/confluent-schema-registry
+    depends_on:
+      - zk-1
+      - zk-2
+      - zk-3
+      - kfk-1
+      - kfk-2
+      - kfk-3 
+      - kfk-4
+      - kfk-5                  
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: sr
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: localhost:12181,localhost:22181,localhost:32181
+      SCHEMA_REGISTRY_LISTENERS: http://localhost:8081
+    network_mode: host
+    
+  rp:
+    image: mbe1224/confluent-rest-proxy
+    depends_on:
+      - zk-1
+      - zk-2
+      - zk-3
+      - kfk-1
+      - kfk-2
+      - kfk-3 
+      - kfk-4
+      - kfk-5  
+      - sr
+    ports:
+      - "8082:8082"
+    environment:
+      KAFKA_REST_HOST_NAME: rp    
+      KAFKA_REST_ZOOKEEPER_CONNECT: localhost:12181,localhost:22181,localhost:32181
+      KAFKA_REST_LISTENERS: http://localhost:8082
+      KAFKA_REST_SCHEMA_REGISTRY_URL: http://localhost:8081
+    network_mode: host      
+...

@@ -1,0 +1,37 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: zookeeper3
+  labels:
+    app: zk
+    category: zookeeper
+    instance: "3"
+spec:
+  containers:
+  - name: zookeeper
+    imagePullPolicy: Always 
+    image: mbe1224/confluent-zookeeper
+    env: 
+    - name: ZOOKEEPER_SERVER_ID
+      value: "3"
+    - name: ZOOKEEPER_CLIENT_PORT
+      value: "2181"
+    - name: ZOOKEEPER_SERVERS
+      value: "zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888"
+    readinessProbe:
+      exec:
+        command:
+        - /bin/sh
+        - -c
+        - '[ "imok" = "$(echo ruok | nc -w 1 -q 1 localhost 2181)" ]'            
+      initialDelaySeconds: 5
+      timeoutSeconds: 5
+    livenessProbe:
+      exec:
+        command:
+        - /bin/sh
+        - -c
+        - '[ "imok" = "$(echo ruok | nc -w 1 -q 1 localhost 2181)" ]' 
+      initialDelaySeconds: 5
+      timeoutSeconds: 5

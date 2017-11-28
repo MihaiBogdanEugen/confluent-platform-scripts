@@ -1,0 +1,11 @@
+---
+version: '3'
+services:
+  zk:
+    image: mbe1224/confluent-zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    network_mode: host              
+...

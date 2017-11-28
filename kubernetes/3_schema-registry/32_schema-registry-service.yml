@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sr-svc
+  namespace: confluent-platform  
+  labels:
+    app: sr-svc
+    category: schema-registry
+spec:
+  ports:
+  - name: server
+    protocol: TCP  
+    port: 8081
+  clusterIP: None    
+  selector:
+    app: sr

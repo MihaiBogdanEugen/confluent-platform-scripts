@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sr-cm
+  namespace: confluent-platform
+  labels:
+    category: schema-registry
+data:
+  log4j.root.loglevel: "INFO"

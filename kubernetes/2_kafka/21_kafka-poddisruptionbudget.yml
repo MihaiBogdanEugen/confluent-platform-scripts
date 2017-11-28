@@ -1,0 +1,13 @@
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: kfk-pdb
+  namespace: confluent-platform
+  labels:
+    category: kafka
+spec:
+  selector:
+    matchLabels:
+      app: kfk
+  minAvailable: 3
