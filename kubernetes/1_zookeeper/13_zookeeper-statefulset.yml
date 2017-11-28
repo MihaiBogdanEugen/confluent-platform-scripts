@@ -54,7 +54,7 @@ spec:
         - name: ZOOKEEPER_ELECTION_PORT
           value: "3888"
         - name: ZOOKEEPER_SERVERS
-          value: "zk-0.zk-svc.kafka.svc.cluster.local:2888:3888;zk-1.zk-svc.kafka.svc.cluster.local:2888:3888;zk-2.zk-svc.kafka.svc.cluster.local:2888:3888"
+          value: "zk-0.zk-svc.confluent-platform.svc.cluster.local:2888:3888;zk-1.zk-svc.confluent-platform.svc.cluster.local:2888:3888;zk-2.zk-svc.confluent-platform.svc.cluster.local:2888:3888"
         - name: ZOOKEEPER_SERVER_ID
           value: "ignored"
         readinessProbe:

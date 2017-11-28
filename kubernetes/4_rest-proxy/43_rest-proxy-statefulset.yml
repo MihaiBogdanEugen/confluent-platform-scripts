@@ -26,9 +26,9 @@ spec:
           name: server
         env:
         - name: KAFKA_REST_ZOOKEEPER_CONNECT
-          value: "zk-0.zk-svc.default.svc.cluster.local:2181,zk-1.zk-svc.default.svc.cluster.local:2181,zk-2.zk-svc.default.svc.cluster.local:2181"
+          value: "zk-0.zk-svc.confluent-platform.svc.cluster.local:2181,zk-1.zk-svc.confluent-platform.svc.cluster.local:2181,zk-2.zk-svc.confluent-platform.svc.cluster.local:2181"
         - name: KAFKA_REST_SCHEMA_REGISTRY_URL
-          value: "sr-0.sr-svc.default.svc.cluster.local:8081"
+          value: "sr-0.sr-svc.confluent-platform.svc.cluster.local:8081"
         - name: KAFKA_REST_HOST_NAME
           value: "rp-0"          
         - name: KAFKA_REST_LISTENERS
