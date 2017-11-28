@@ -8,7 +8,7 @@ fi
 CONFIG_FILE=$1
 
 kubectl --kubeconfig $CONFIG_FILE \
-    --namespace=confluent-platform \
+    --namespace=confluent-platform   \
     delete pods,services,configmaps,poddisruptionbudgets,deployments,statefulsets \
     -l category=zookeeper \
     --include-uninitialized

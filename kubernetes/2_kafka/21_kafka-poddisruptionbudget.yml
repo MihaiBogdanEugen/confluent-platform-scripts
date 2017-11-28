@@ -10,4 +10,4 @@ spec:
   selector:
     matchLabels:
       app: kfk
-  minAvailable: 5
+  minAvailable: 3

@@ -12,5 +12,6 @@ spec:
   - name: server
     protocol: TCP  
     port: 9092
+  clusterIP: None
   selector:
     app: kfk

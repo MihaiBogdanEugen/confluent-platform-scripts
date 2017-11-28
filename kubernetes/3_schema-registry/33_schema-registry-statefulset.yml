@@ -1,39 +1,48 @@
 ---
 apiVersion: apps/v1beta1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: sr
-  namespace: confluent-platform  
   labels:
     category: schema-registry
-spec:
+spec: 
+  serviceName: sr-svc
   replicas: 1
   template:
     metadata:
       labels:
         app: sr
     spec: 
-      terminationGracePeriodSeconds: 300
       containers:
-      - name: confluent-schema-registry
+      - name: schema-registry
         imagePullPolicy: Always
         image: mbe1224/confluent-schema-registry
         resources:
           requests:
             memory: "1Gi"
-            cpu: 500m
+            cpu: 500m        
         ports:
         - containerPort: 8081
           name: server
         env:
         - name: SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL
-          value: "zk-svc.confluent-platform.svc.cluster.local:2181"
+          value: "zk-0.zk-svc.default.svc.cluster.local:2181,zk-1.zk-svc.default.svc.cluster.local:2181,zk-2.zk-svc.default.svc.cluster.local:2181"
         - name: SCHEMA_REGISTRY_HOST_NAME
-          value: "sr-svc.confluent-platform.svc.cluster.local"
+          value: "sr-0"
         - name: SCHEMA_REGISTRY_LISTENERS
-          value: "http://sr-svc.confluent-platform.svc.cluster.local:8081"
+          value: "http://sr-0:8081"
         - name: SCHEMA_REGISTRY_LOG4J_ROOT_LOGLEVEL
           valueFrom:
             configMapKeyRef:
                 name: sr-cm
-                key: log4j.root.loglevel
+                key: log4j.root.loglevel       
+        readinessProbe:
+          tcpSocket:
+            port: 8081
+          initialDelaySeconds: 10        
+          timeoutSeconds: 1
+        livenessProbe:
+          tcpSocket:
+            port: 8081
+          initialDelaySeconds: 10        
+          timeoutSeconds: 1        

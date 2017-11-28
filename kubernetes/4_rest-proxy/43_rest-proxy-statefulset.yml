@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: rp
+  labels:
+    category: rest-proxy
+spec: 
+  serviceName: rp-svc
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rp
+    spec: 
+      containers:
+      - name: rest-proxy
+        imagePullPolicy: Always
+        image: mbe1224/confluent-rest-proxy
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: 500m        
+        ports:
+        - containerPort: 8082
+          name: server
+        env:
+        - name: KAFKA_REST_ZOOKEEPER_CONNECT
+          value: "zk-0.zk-svc.default.svc.cluster.local:2181,zk-1.zk-svc.default.svc.cluster.local:2181,zk-2.zk-svc.default.svc.cluster.local:2181"
+        - name: KAFKA_REST_SCHEMA_REGISTRY_URL
+          value: "sr-0.sr-svc.default.svc.cluster.local:8081"
+        - name: KAFKA_REST_HOST_NAME
+          value: "rp-0"          
+        - name: KAFKA_REST_LISTENERS
+          value: "http://rp-0:8082"
+        - name: KAFKA_REST_LOG4J_ROOT_LOGLEVEL
+          valueFrom:
+            configMapKeyRef:
+                name: rp-cm
+                key: log4j.root.loglevel            
+        readinessProbe:
+          tcpSocket:
+            port: 8082
+          initialDelaySeconds: 10        
+          timeoutSeconds: 1
+        livenessProbe:
+          tcpSocket:
+            port: 8082
+          initialDelaySeconds: 10        
+          timeoutSeconds: 1        

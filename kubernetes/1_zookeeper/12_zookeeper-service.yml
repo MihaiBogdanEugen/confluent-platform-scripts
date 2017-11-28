@@ -18,5 +18,6 @@ spec:
   - name: leader-election
     protocol: TCP  
     port: 3888
+  clusterIP: None
   selector:
     app: zk

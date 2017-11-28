@@ -1,0 +1,112 @@
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: kfk
+  namespace: confluent-platform  
+  labels:
+    category: kafka
+spec:
+  serviceName: kfk-svc
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: kfk
+    spec: 
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values: 
+                    - kfk
+              topologyKey: "kubernetes.io/hostname"
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+             - weight: 1
+               podAffinityTerm:
+                 labelSelector:
+                    matchExpressions:
+                      - key: "app"
+                        operator: In
+                        values: 
+                        - zk
+                 topologyKey: "kubernetes.io/hostname"
+      terminationGracePeriodSeconds: 300
+      containers:
+      - name: kafka
+        imagePullPolicy: Always
+        image: mbe1224/confluent-afka
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: 500m
+        ports:
+        - containerPort: 9092
+          name: server
+        env:
+        - name: IS_KUBERNETES
+          value: "true"     
+        - name: KAFKA_ZOOKEEPER_CONNECT
+          value: "zk-0.zk-svc.kafka.svc.cluster.local:2181,zk-1.zk-svc.kafka.svc.cluster.local:2181,zk-2.zk-svc.kafka.svc.cluster.local:2181"    
+        - name: KAFKA_LISTENERS
+          value: "PLAINTEXT://:9092"
+        - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
+          valueFrom:
+            configMapKeyRef:
+                name: kfk-cm
+                key: auto.create.topics.enable   
+        - name: KAFKA_DEFAULT_REPLICATION_FACTOR
+          valueFrom:
+            configMapKeyRef:
+                name: kfk-cm
+                key: default.replication.factor                          
+        - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+          valueFrom:
+            configMapKeyRef:
+                name: kfk-cm
+                key: offsets.topic.replication.factor    
+        - name: KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR
+          valueFrom:
+            configMapKeyRef:
+                name: kfk-cm
+                key: transaction.state.log.replication.factor  
+        - name: KAFKA_TRANSACTION_STATE_LOG_MIN_ISR
+          valueFrom:
+            configMapKeyRef:
+                name: kfk-cm
+                key: transaction.state.log.min.isr  
+        - name: KAFKA_NUM_PARTITIONS
+          valueFrom:
+            configMapKeyRef:
+                name: kfk-cm
+                key: num.partitions      
+        - name: KAFKA_LOG4J_ROOT_LOGLEVEL
+          valueFrom:
+            configMapKeyRef:
+                name: kfk-cm
+                key: log4j.root.loglevel               
+        readinessProbe:
+          tcpSocket:
+            port: 9092
+          initialDelaySeconds: 10        
+          timeoutSeconds: 1
+        livenessProbe:
+          tcpSocket:
+            port: 9092
+          initialDelaySeconds: 10        
+          timeoutSeconds: 1 
+  #       volumeMounts:
+  #       - name: datadir
+  #         mountPath: /var/lib/kafka
+  # volumeClaimTemplates:
+  # - metadata:
+  #     name: datadir
+  #   spec:
+  #     accessModes: [ "ReadWriteOnce" ]
+  #     resources:
+  #       requests:
+  #         storage: 10Gi          
