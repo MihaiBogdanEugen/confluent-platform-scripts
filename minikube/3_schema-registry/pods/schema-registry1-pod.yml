@@ -9,7 +9,7 @@ metadata:
     instance: "1"    
 spec:
   containers:
-  - name: confluent-schema-registry
+  - name: schema-registry
     imagePullPolicy: Always
     image: mbe1224/confluent-schema-registry
     env:
@@ -19,3 +19,13 @@ spec:
       value: "schema-registry1"
     - name: SCHEMA_REGISTRY_LISTENERS
       value: "http://schema-registry1:8081"
+    readinessProbe:
+      tcpSocket:
+        port: 8081
+      initialDelaySeconds: 10        
+      timeoutSeconds: 1
+    livenessProbe:
+      tcpSocket:
+        port: 8081
+      initialDelaySeconds: 10        
+      timeoutSeconds: 1    

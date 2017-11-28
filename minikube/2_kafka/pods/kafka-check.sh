@@ -2,7 +2,7 @@
 
 for pod in `kubectl get pods -l app=kfk -o json | jq -r '[.items[].metadata.name]' | jq .[] | tr -d '"'`; do
   echo "Kafka running on pod $pod knows about"
-  kubectl exec -it $pod -- bash -c "kafka-run-class kafka.admin.BrokerApiVersionsCommand --bootstrap-server localhost:9092 | grep kfk -c"
+  kubectl exec -it $pod -- bash -c "kafka-run-class kafka.admin.BrokerApiVersionsCommand --bootstrap-server localhost:9092 | grep kafka -c"
   echo "brokers"
   echo "--------------------------------------------"
 done

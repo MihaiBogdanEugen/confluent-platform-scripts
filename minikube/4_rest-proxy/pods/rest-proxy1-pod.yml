@@ -9,7 +9,7 @@ metadata:
     instance: "1"       
 spec:
   containers:
-  - name: confluent-rest-proxy
+  - name: rest-proxy
     imagePullPolicy: Always 
     image: mbe1224/confluent-rest-proxy
     env:
@@ -21,3 +21,13 @@ spec:
       value: "rest-proxy1"
     - name: KAFKA_REST_LISTENERS
       value: "http://rest-proxy1:8082"
+    readinessProbe:
+      tcpSocket:
+        port: 8082
+      initialDelaySeconds: 10        
+      timeoutSeconds: 1
+    livenessProbe:
+      tcpSocket:
+        port: 8082
+      initialDelaySeconds: 10        
+      timeoutSeconds: 1         
